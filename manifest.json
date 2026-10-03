@@ -1,0 +1,16 @@
+{
+  "display_name": "砚台 · 小说生产",
+  "loading_order": 110,
+  "requires": [],
+  "optional": [],
+  "js": "index.js",
+  "css": "style.css",
+  "author": "阿砚 × Codex",
+  "version": "0.1.0",
+  "minimum_client_version": "1.16.0",
+  "auto_update": true,
+  "hooks": {
+    "enable": "onEnable",
+    "disable": "onDisable"
+  }
+}

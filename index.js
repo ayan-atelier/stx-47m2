@@ -187,3 +187,38 @@ function installSettingsEntry() {
   block.append(drawer);
   parent.append(block);
 }
+
+
+function installNativeSettingsEntry() {
+  const parent = document.getElementById('extensions_settings2') || document.getElementById('extensions_settings');
+  if (!parent || document.getElementById('yt-novel-settings-entry')) return;
+  const block = el('div', '', 'extension_container yt-plugin-settings');
+  block.id = 'yt-novel-settings-entry';
+  const drawer = el('div', '', 'inline-drawer');
+  const header = el('div', '', 'inline-drawer-toggle inline-drawer-header');
+  header.tabIndex = 0;
+  header.setAttribute('role', 'button');
+  header.setAttribute('aria-expanded', 'false');
+  header.setAttribute('aria-controls', 'yt-novel-settings-content');
+  const icon = el('div', '', 'fa-solid fa-circle-chevron-down inline-drawer-icon down');
+  icon.setAttribute('aria-hidden', 'true');
+  header.append(el('b', '砚台 · 小说生产'), icon);
+  header.addEventListener('click', () => header.setAttribute('aria-expanded', String(icon.classList.contains('down'))));
+  header.addEventListener('keydown', event => {
+    if (['Enter', ' '].includes(event.key)) { event.preventDefault(); event.stopPropagation(); header.click(); }
+  });
+  const content = el('div', '', 'inline-drawer-content');
+  content.id = 'yt-novel-settings-content';
+  content.append(el('small', '主回复完成后保留原版，并用第二 API 生成去 AI 味版。', 'muted'));
+  const launch = button('打开小说生产', openPanel, true);
+  launch.classList.add('menu_button');
+  content.append(launch);
+  drawer.append(header, content);
+  block.append(drawer);
+  parent.append(block);
+}
+const settingsObserver = new MutationObserver(() => installNativeSettingsEntry());
+settingsObserver.observe(document.body, { childList: true, subtree: true });
+installNativeSettingsEntry();
+if (globalThis.SillyTavern?.getContext) onEnable();
+else window.addEventListener('load', onEnable, { once: true });

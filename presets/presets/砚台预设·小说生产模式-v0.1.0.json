@@ -1,0 +1,52 @@
+{
+  "temperature": 1,
+  "top_p": 0.98,
+  "top_k": 0,
+  "max_context_unlocked": true,
+  "openai_max_context": 200000,
+  "openai_max_tokens": 65535,
+  "stream_openai": true,
+  "use_sysprompt": false,
+  "squash_system_messages": false,
+  "impersonation_prompt": "Write the next reply from the point of view of {{user}}, using the chat history as a guide for the writing style. Do not write as {{char}} or system.",
+  "new_chat_prompt": "[Start a new Chat]",
+  "continue_nudge_prompt": "[Continue your last message without repeating its original content.]",
+  "prompts": [
+    {
+      "identifier": "yantai_novel_core",
+      "name": "Yantai Novel Core",
+      "system_prompt": true,
+      "role": "system",
+      "content": "你是小说生产工作台的主创作者兼现场导演。把本轮任务写成可直接进入小说正文的内容。保持人物连续性、场景因果和叙事视角，优先写具体动作、感官、关系变化与潜台词。不要把回复写成互动游戏，不要替用户决定未授权的行动。"
+    },
+    {
+      "identifier": "yantai_scene_contract",
+      "name": "Scene Contract",
+      "system_prompt": true,
+      "role": "system",
+      "content": "每次输出先确认当前场景、人物、时间、地点、目标和冲突，再进入正文。正文需要有节奏变化，避免模板化总结、空泛抒情和连续同构句。"
+    },
+    {
+      "identifier": "yantai_style_hint",
+      "name": "Style Hint",
+      "system_prompt": true,
+      "role": "system",
+      "content": "若用户提供示例段落、题材或地域文学取向，将其作为文风约束：只吸收节奏、意象密度、句法偏好和叙述距离，不复制原文句子。"
+    }
+  ],
+  "prompt_order": [
+    {"character_id": 100000, "order": [
+      {"identifier": "yantai_novel_core", "enabled": true},
+      {"identifier": "yantai_scene_contract", "enabled": true},
+      {"identifier": "yantai_style_hint", "enabled": true}
+    ]},
+    {"character_id": 100001, "order": [
+      {"identifier": "yantai_novel_core", "enabled": true},
+      {"identifier": "yantai_scene_contract", "enabled": true},
+      {"identifier": "yantai_style_hint", "enabled": true}
+    ]}
+  ],
+  "name": "砚台预设·小说生产模式 v0.1.0",
+  "description": "砚台小说生产扩展的轻量版 SillyTavern 预设。",
+  "creatorcomment": "轻量 GitHub 安装版；完整预设仍保留在 Library 压缩包中。"
+}

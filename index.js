@@ -1,7 +1,7 @@
 import { createHost } from './src/host.js';
 import { buildMessages, extractText, hash, latestRevision, makeMeta, normalizeSettings, apiPayload, buildSegments } from './src/core.js';
 
-const VERSION = '0.1.0';
+const VERSION = '0.1.1';
 const SETTINGS_KEY = 'yantaiNovel';
 const SECRET_SLOT = 'yantai:novel:custom-api-key:v1';
 const cleanups = [];

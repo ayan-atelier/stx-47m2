@@ -136,3 +136,23 @@ function start() { if(alive) return; alive=true; host=createHost(); installMenu(
 function stop() { alive=false; while(cleanups.length) cleanups.pop()?.(); menuItem?.remove(); menuItem=null; panel?.remove();panel=null;busy.clear(); }
 export function onEnable(){start();}
 export function onDisable(){stop();}
+
+
+function installSettingsEntry() {
+  const parent = document.querySelector('#extensions_settings2, #extensions_settings');
+  if (!parent || document.getElementById('yt-novel-settings-entry')) return;
+  const wrap = el('div', '', 'inline-drawer yt-novel-settings-entry');
+  wrap.id = 'yt-novel-settings-entry';
+  const header = el('div', '', 'inline-drawer-header');
+  header.append(el('b', '砚台 · 小说生产'));
+  const content = el('div', '', 'inline-drawer-content');
+  content.append(el('p', '主回复完成后保留原版，并用第二 API 生成去 AI 味版。API、题材规则和作者声音在面板内配置。', 'description muted'));
+  content.append(button('打开小说生产', openPanel, true));
+  wrap.append(header, content);
+  parent.append(wrap);
+}
+const settingsObserver = new MutationObserver(() => installSettingsEntry());
+settingsObserver.observe(document.body, { childList: true, subtree: true });
+installSettingsEntry();
+if (globalThis.SillyTavern?.getContext) onEnable();
+else window.addEventListener('load', onEnable, { once: true });
